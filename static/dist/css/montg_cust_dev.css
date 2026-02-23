@@ -1,0 +1,32 @@
+/*
+*
+* User : SoumenD;
+* Gitlab : SoumenD;
+*
+*/
+
+/* Template Content related CSS */
+.text-sm .content-header {padding: 1.25rem .5rem 0.25rem !important;}
+
+/* Universal slim scroll */
+::-webkit-scrollbar {width: 5px;}
+::-webkit-scrollbar-track {background:#dadada;border-radius:2px;}
+::-webkit-scrollbar-thumb {background:#5a5d63;border-radius:2px;}
+::-webkit-scrollbar-thumb:hover {background:#18191c;}
+
+/* Back to top Css */
+.back-to-top { position: fixed; bottom: 40px; right: 18px; display: none; color: #ffffff !important; background-color: #17a2b8 !important;}
+
+/* Sweet Alert Css Customization - Starts */
+.swal2-popup {width: 27em !important; border-radius: 0rem !important;}
+.swal2-icon {width: 5em !important; height: 5em !important; margin: 1.25em auto 1.25em !important;}
+.swal2-header {border: 0px !important; padding: 0.25rem 0rem !important;}
+.swal2-styled.swal2-confirm {border: 0px !important; border-radius: 0 !important; background-color: #17a2b8 !important;}
+.swal2-styled.swal2-cancel {border: 0px !important; border-radius: 0 !important;}
+.swal2-content {padding: 0.5rem 0.5rem 0rem !important;}
+.swal2-actions {padding: 0 0 0.5rem !important; margin: 0.5em auto 0.5em !important;}
+/* Sweet Alert Css Customization - Ends */
+
+/* Overlay CSS */
+#overlay { position: fixed; display: none; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 2; cursor: pointer;}
+#overlay i { position: absolute; top: 50%; left: 50%; font-size: 50px; color: white; transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%);}
