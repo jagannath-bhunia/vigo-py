@@ -1,0 +1,146 @@
+{% load static%}
+<aside class="main-sidebar elevation-2 sidebar-light-info">
+    <a href="" class="brand-link">
+        <img src="{% static 'dist/img/2go_small.png' %}" alt="Inspect2GO" id="collapsedLogo"
+            class="brand-image img-circle elevation-3" style="opacity:.99;display:none;">
+
+        <img src="{% static 'dist/img/inspect2gologo.png' %}" alt="Inspect2GO" id="stretchedLogo" class="brand-image"
+                style="opacity:.99">
+    </a>
+
+
+    <div class="sidebar text-sm">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-flat nav-child-indent"
+                data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item">
+                    <a href="{% url 'dashboard:home' %}"
+                        class="nav-link {% if request.resolver_match.app_name == 'dashboard' %}active{% endif %}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="javascript:void(0);" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Associated Data</p>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview" style="padding-left: 0rem !important;">
+
+                        <li class="nav-item">
+                            <a class="nav-link pl-4 "
+                                href="">
+                                <i class="fas fa-circle-notch nav-icon ml-2"></i>
+                                <p>Manage Role</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-4"
+                                href="">
+                                <i class="fas fa-circle-notch nav-icon ml-2"></i>
+                                <p>Manage User</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link pl-4"
+                                href="">
+                                <i class="fas fa-circle-notch nav-icon ml-2"></i>
+                                <p>Manage Permission</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview {% if request.resolver_match.app_name == 'food' %}menu-open{% endif %}">
+
+                    <a href="javascript:void(0);" class="nav-link {% if request.resolver_match.app_name == 'food' %}active{% endif %}">
+
+                        <i class="nav-icon fas fa-file-contract"></i>
+                        <p>Permits</p>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview" style="padding-left: 0rem !important;">
+                       
+                        <li class="nav-item">
+                            <a class="nav-link pl-4 {% if request.resolver_match.url_name == 'food_index' %}active{% endif %}"
+                                href="{% url 'food:food_index' %}">
+                                <i class="fas fa-circle-notch nav-icon ml-2"></i>
+                                <p>Food</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="javascript:void(0);" class="nav-link">
+                        <i class="nav-icon fas fa-file-contract"></i>
+                        <p>Complaint</p>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview" style="padding-left: 0rem !important;">
+
+                        <li class="nav-item">
+                            <a class="nav-link pl-4"
+                                href="">
+                                <i class="fas fa-circle-notch nav-icon ml-2"></i>
+                                <p>General</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="javascript:void(0);" class="nav-link">
+                        <i class="nav-icon fas fa-file-contract"></i>
+                        <p>Schedules</p>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview" style="padding-left: 0rem !important;">                      
+                        <li class="nav-item">
+                            <a class="nav-link pl-4"
+                                href="">
+                                <i class="fas fa-circle-notch nav-icon ml-2"></i>
+                                <p>Food</p>
+                            </a>
+                        </li>                       
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="javascript:void(0);" class="nav-link">
+
+                        <i class="nav-icon fas fa-file-contract"></i>
+                        <p>Inspection</p>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview" style="padding-left: 0rem !important;">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Food
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Food Inspection</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

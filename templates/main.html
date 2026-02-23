@@ -1,0 +1,241 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        {% include 'layouts/header.html' %}
+        <style>
+            .ui-autocomplete.ui-front {
+                max-height: 250px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                z-index:9999 !important;
+                background: #F0F3F4;
+                font-size: 12px;
+            }
+            .ui-autocomplete-loading { background: white url("../../dist/img/ui-anim_basic_16x16.gif") right center no-repeat; }
+
+            .select2-container--default .select2-selection--multiple .select2-selection__choice {color: #000 !important;}
+            .select2-container--default .select2-selection--single {border: 1px solid #ced4da !important; min-height: calc(1.8125rem + 2px) !important;}
+            .select2-container--default .select2-selection--multiple {border: 1px solid #ced4da !important; min-height: calc(1.8125rem + 2px) !important;}
+            .select2-container--default .select2-selection--single .select2-selection__rendered {line-height: calc(1.8125rem - 0.25rem) !important;}
+            .hideOnLoad {display: none;}
+            .customFont {font-size: 16px !important;}
+            .m-signature-pad-body {border:1px dashed #000;}
+
+        </style>
+    </head>
+
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed accent-info">
+
+        {% include 'layouts/navbar.html' %}
+        {% include 'layouts/sidebar.html' %}
+        <div class="content-wrapper">
+            {% block content %}
+            {% endblock %}
+        
+        </div>
+        <x-footer />
+        <script type="text/javascript" src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/datatables/jquery.dataTables.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+
+        <script src="{% static 'plugins/sweetalert2/sweetalert2.min.js' %}"></script>
+
+        <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+        <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+        <!-- Custom Javascripts -->
+        <script src="{% static 'dist/js/adminlte.js' %}"></script>
+
+
+
+        {% block script %}
+        {% endblock %}
+        <script>
+            $(function(){
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+
+            function formatSelection(val) {
+            return val.id;
+            }
+
+            if($('select.select2').length){
+                $('.select2').select2({
+                    width: 'resolve',
+                    //theme:'classic',
+                    containerCssClass : " shadow"
+                });
+            }
+
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 50) {
+                    $('#back-to-top').fadeIn();
+                } else {
+                    $('#back-to-top').fadeOut();
+                }
+            });
+            // scroll body to 0px on click
+            $('#back-to-top').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 500);
+                return false;
+            });
+
+            $('.custom-file-input').not('.not-disply-name').on({"change":function(){
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            }});
+
+            $('input.number').on({"keyup keydown paste":function(e){
+                //alert('hi');
+                var invalidChars = ["-","+","e"];
+                if(invalidChars.includes(e.key))
+                {
+                    e.preventDefault();
+                }
+            }});
+
+            function functionalityDisabled() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Functionality Disabled',
+                });
+            }
+
+            $('.dateField').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 2016,
+                maxYear: parseInt(moment().format('YYYY')) + 4,
+                autoUpdateInput: false,
+                applyButtonClasses: 'btn-info rounded-0',
+            });
+            $('.dateField').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('L'));
+            });
+            $('.dateField').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+
+            function applyDateRangePicker(element,minDate=null,maxDate=null){
+                element.daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 2016,
+                maxYear: parseInt(moment().format('YYYY')) + 4,
+                minDate:minDate,
+                maxDate:maxDate,
+                autoUpdateInput: false,
+                applyButtonClasses: 'btn-info rounded-0',
+                enablePastDates:false
+            });
+            element.on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('L'));
+            });
+            element.on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+            }
+
+
+            $('.getdaterange').daterangepicker({
+                showDropdowns: true,
+                autoUpdateInput: false,
+                      
+            });
+            $('.getdaterange').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            });
+            $('.getdaterange').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+
+            $('.gettimerange').daterangepicker({
+                autoUpdateInput: false,
+                timePicker: true,
+                timePicker24Hour: false,
+                timePickerIncrement: 1,
+                timePickerSeconds: false,
+                locale: {
+                        format: 'hh:mm A'
+                    }
+            }).on('show.daterangepicker', function (ev, picker) {
+                picker.container.find(".calendar-table").hide();
+            }).on('apply.daterangepicker', function(ev, picker) {
+                        $(this).val(picker.startDate.format('hh:mm A') + ' - ' + picker.endDate.format('hh:mm A'));
+            });
+            var elevetionClass = ' shadow';
+           
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+            if($('input[data-mask]').length){
+                $('[data-mask]').inputmask();
+            }
+
+            
+            var planReviewFee = parseFloat("");
+
+            var authUser = "";
+
+            var currentDt = new Date();
+            var month = currentDt.getMonth()+1;
+            var day = currentDt.getDate();
+            var year = currentDt.getFullYear();
+            var currentDate = (month<10 ? '0' : '') + month + '/' + (day<10 ? '0' : '') + day+ '/' + year;
+            var currentTime = currentDt.getHours() + ":" + currentDt.getMinutes() + ":" + currentDt.getSeconds();
+            var totalSupportedImages = "15";
+
+            function validateDateMDY(value) {
+                return moment(value,"MM/DD/YYYY",true).isValid();
+            }
+
+            function validateDateRangeMDY(value) {
+                return moment(value,"MM/DD/YYYY - MM/DD/YYYY",true).isValid();
+            }
+
+            function validateTimeHHmm(value){
+              return moment(value,"HH:mm",true).isValid();
+            }
+
+            function validateTimeRangeHHmm(value){
+                if(!moment(value,"HH:mm - HH:mm",true).isValid()){
+                    return false;
+                }
+
+                value = value.split(' - ');
+                let beginningTime = moment(value[0],'HH:mm');
+                let endingTime = moment(value[1],'HH:mm');
+                if(endingTime.isBefore(beginningTime)){
+                    return false;
+                }
+
+                return true;
+            }
+
+            function validateTimeRangehhmmAMPM(value){
+                if(!moment(value,"hh:mm A - hh:mm A",true).isValid()){
+                    return false;
+                }
+                value = value.split(' - ');
+                let beginningTime = moment(value[0],'HH:mm');
+                let endingTime = moment(value[1],'HH:mm');
+                if(endingTime.isBefore(beginningTime)){
+                    return false;
+                }
+                return true;
+            }
+
+            function validateTime(value){
+                if(!moment(value,"HH:mm").isValid()){
+                    return false;
+                }
+                return true;
+            }
+            
+
+        </script>
+    </body>
+</html>

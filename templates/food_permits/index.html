@@ -1,0 +1,158 @@
+{% extends 'main.html' %}
+{% block title %}Food Dashboard{% endblock %}
+
+{% block content %}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="d-inline">Manage Food Permits</h1>
+                <a href="{% url 'food:food_create' %}" class="btn btn-info btn-sm btn-flat text-white">Add Food
+                    Permit</a>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href=" ">Home</a></li>
+                    <li class="breadcrumb-item active">Manage Food Permits</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+
+        </div>
+        <div class="col-12">
+            <div class="card rounded-0">
+                <div class="card-header">
+                    <form action="" method="GET">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-12 col-xs-12 date_show">
+                                <div class="form-group">
+                                    <label for="date">Date</label>
+                                    <input type="text" name="date" id="date" readonly
+                                        class="form-control form-control-sm text-sm rounded-0 getdaterange" value=" "
+                                        placeholder="mm/dd/yyyy" />
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="permit_number">Permit No</label>
+                                    <input type="text" name="permit_number" id="permit_number"
+                                        class="form-control form-control-sm text-sm rounded-0" value=" "
+                                        placeholder="Permit No" />
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="est_name">Establishment</label>
+                                    <input type="text" name="est_name" id="est_name"
+                                        class="form-control form-control-sm text-sm rounded-0" value=""
+                                        placeholder="Establishment" />
+                                </div>
+                            </div>
+                            <div class="col-md-1 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="est_address">Est Address</label>
+                                    <input type="text" name="est_address" id="est_address"
+                                        class="form-control form-control-sm text-sm rounded-0" value=""
+                                        placeholder="Address" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="owner_name">Owner</label>
+                                    <input type="text" name="owner_name" id="owner_name"
+                                        class="form-control form-control-sm text-sm rounded-0" value=""
+                                        placeholder="Owner Name" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 col-sm-6 col-xs-12 mt-4">
+
+
+                                <button type="Submit"
+                                    class="btn btn-info btn-sm btn-flat d-inline-block elevation-2 text-white mt-2">Search</button>
+
+                            </div>
+
+                            <div class="col-md-1 col-sm-6 col-xs-12 mt-4">
+                                <button type="Submit" name="export" id="export" value="exportData"
+                                    class="btn btn-primary btn-sm btn-flat d-inline-block elevation-2 text-white"
+                                    style="margin-top: 9px;">
+                                    Export
+                                </button>
+                            </div>
+
+                            <div class="col-md-2 col-sm-6 col-xs-12 mt-4">
+                                Show&nbsp;&nbsp;
+                                <select class="form-control-sm rounded-0" name="selectItemPerPage"
+                                    id="selectItemPerPage" onchange="this.form.submit();">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                &nbsp;&nbsp;Entries
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 mt-4">
+                                <button type="button" name="labelPrintEstablishment" id="labelPrint"
+                                    value="establishment"
+                                    class="btn btn-primary btn-sm btn-flat d-inline-block elevation-2 text-white">
+                                    Establishment Label Print
+                                </button>
+                            </div>
+
+                            <div class="col-md-2 mt-4">
+                                <button type="button" name="labelPrintOwner" id="labelPrint" value="owner"
+                                    class="btn btn-primary btn-sm btn-flat d-inline-block elevation-2 text-white">
+                                    Owner Label Print
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th class="bg-info">Permit Number</th>
+                                <th class="bg-info">File Date</th>
+                                <th class="bg-info">Exp Date</th>
+                                <th class="bg-info">Est Name</th>
+                                <th class="bg-info">Address</th>
+                                <th class="bg-info">City</th>
+                                <th class="bg-info">State</th>
+                                <th class="bg-info">Zip</th>
+                                <th class="bg-info">Owner Name</th>
+                                <th class="bg-info">Status</th>
+                                <th class="bg-info text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row mt-1">
+                        <div class="col-md-3 mt-3">
+
+                        </div>
+                        <div class="col-md-9 mt-2 float-right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

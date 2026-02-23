@@ -1,0 +1,418 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title%}Food Create {% endblock%}
+
+
+{% block content%}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="d-inline">New Food Permit </h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{% url 'dashboard:home' %}">Home</a></li>
+
+                    <li class="breadcrumb-item"><a>Permits</a></li>
+                    <li class="breadcrumb-item active">New Food Permit</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content text-sm">
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-primary rounded-0">
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" id="navTabLi1">
+                            <a class="nav-link active rounded-0" id="general-tab" data-toggle="tab" href="#general"
+                                role="tab" aria-controls="general" aria-selected="true" style="font-size:1.25rem;">Basic
+                                Information</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content border border-top-0 p-2" id="myTabContent">
+                        <div class="tab-pane fade show active general" id="general" role="tabpanel"
+                            aria-labelledby="general-tab">
+                            <form method="POST" id="frmPermitInfoData" name="frmPermitInfoData">
+
+                                <input type="hidden" name="hdnTab1InsDetail" id="hdnTab1InsDetail" value="" />
+                                <input type="hidden" name="permit_status" id="permit_status" value="incomplete" />
+                                <input type="hidden" id="cateringFee" name="cateringFee" value="0">
+                                <input type="hidden" id="lateFee" name="lateFee" value="0">
+
+                                <input type="hidden" id="permit_fee_amount" name="permit_fee_amount" value="0">
+                                <div class="form-inline mb-3">
+                                    <h5 class="text-bold mt-3">PERMIT INFORMATION</h5>
+                                </div>
+                                <div class="row pt-2 pb-2">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <div class="row showOnFireCheckboxSelect">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="permit_fee_id" class="">Fees Category <span
+                                                            class="text-danger">*</span></label>
+                                                    <select
+                                                        class="form-control form-control-sm text-sm rounded-0 select2 "
+                                                        name="permit_fee_id" id="permit_fee_id">
+                                                        <option value="">Select Fees Category </option>
+
+
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 col-sm-6 col-xs-12 mt-4">
+                                        <div class="icheck-info d-inline ml-4">
+                                            <input type="checkbox" id="cateringFeeCalculate"
+                                                name="cateringFeeCalculate">
+                                            <label for="cateringFeeCalculate" class="font-weight-normal text-uppercase">
+                                                Catering
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1 col-sm-6 col-xs-12 mt-4">
+                                        <div class="icheck-info d-inline ml-4">
+                                            <input type="checkbox" id="lateFeeCalculate" name="lateFeeCalculate">
+                                            <label for="lateFeeCalculate" class="font-weight-normal text-uppercase">
+                                                Late Fee
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 col-xs-12" id="feeCalcBlock">
+                                        <div class="form-group">
+                                            <label for="estimatedPlanReviewFee" class="">Estimated Fee</label>
+                                            <table class="table table-striped table-bordered shadow">
+                                                <tr id="feeCalcRow">
+                                                    <td id="feeTitle" style="padding: 0.35rem !important;"></td>
+                                                    <td id="feeVal" style="padding: 0.35rem !important;"></td>
+                                                </tr>
+
+                                                <tr id="feecatRow">
+                                                    <td id="catering" style="padding: 0.35rem !important;">Catering</td>
+                                                    <td id="feeCatVal" style="padding: 0.35rem !important;">0.00</td>
+                                                </tr>
+
+                                                <tr id="feelateRow">
+                                                    <td id="late" style="padding: 0.35rem !important;">Late Fee</td>
+                                                    <td id="feeLateVal" style="padding: 0.35rem !important;">0.00</td>
+                                                </tr>
+
+
+
+                                                <tr id="feeCalcRowTotal" class="text-bold">
+                                                    <td style="padding: 0.35rem !important;">Total</td>
+                                                    <td id="totalFee" style="padding: 0.35rem !important;">$ 0.00</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="text-bold mt-3">General Information</h5>
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="" for="permit_file_date">File Date
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="permit_file_date" id="permit_file_date"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow" value=""
+                                                data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy"
+                                                data-mask="" im-insert="false" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="" for="permit_expiration_date">Expiration Date </label>
+                                            <input type="text" name="permit_expiration_date" id="permit_expiration_date"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                placeholder="mm/dd/yyyy" value="" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12"></div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="" for="est_name">Establishment Name <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" name="est_name" id="est_name"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                placeholder="Establishment Name ">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="est_phone">Phone</label>
+                                            <input type="text" name="est_phone" id="est_phone"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;"
+                                                data-mask="" im-insert="true" placeholder="Establishment Phone ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="est_address">Address</label>
+                                            <input type="text" name="est_address" id="est_address"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                placeholder="Establishment Address ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="est_city">City</label>
+                                            <input type="text" name="est_city" id="est_city"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                placeholder="Establishment City ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="est_state">State</label>
+                                            <input type="text" name="est_state" id="est_state"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                placeholder="Establishment State ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="est_zip">Zip</label>
+                                            <input type="text" name="est_zip" id="est_zip"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                data-inputmask="&quot;mask&quot; : &quot;99999&quot;" data-mask=""
+                                                im-insert="true" placeholder="Establishment Zip ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems"></div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="manager_name">Manager Name</label>
+                                            <input type="text" name="manager_name" id="manager_name"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                placeholder="Manager Name ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="manager_phone">Manager Phone</label>
+                                            <input type="text" name="manager_phone" id="manager_phone"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;"
+                                                data-mask="" im-insert="true" placeholder="Manager Phone ">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="manager_email">Manager Email</label>
+                                            <input type="text" name="manager_email" id="manager_email"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                placeholder="Manager Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label for="risk" class="">Risk </label>
+                                            <select class="form-control form-control-sm text-sm rounded-0 select2 "
+                                                name="risk" id="risk">
+                                                <option value="">Select Risk Category </option>
+                                                <option value="high">High</option>
+                                                <option value="medium">Medium</option>
+                                                <option value="low">Low</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <h5 class="text-bold mt-3 text-uppercase">OWNER INFORMATION</h5>
+
+                                <div class="row formSectionOwner">
+
+                                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                                        <div class="form-group">
+                                            <label class="" for="owner_name">Owner Name <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" name="owner_name" id="owner_name"
+                                                class="form-control form-control-sm text-sm rounded-0"
+                                                placeholder="Min 3 character to filter" />
+                                            <input type="hidden" name="owner_id" id="owner_id" value="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                                        <div class="form-group">
+                                            <label class="" for="owner_email"> Email</label>
+                                            <input type="email" name="owner_email" id="owner_email"
+                                                class="form-control form-control-sm text-sm rounded-0"
+                                                placeholder="Owner Email" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                                        <div class="form-group">
+                                            <label class="" for="owner_address"> Mailing Address</label>
+                                            <input type="text" class="form-control form-control-sm text-sm rounded-0"
+                                                name="owner_address" id="owner_address" placeholder="Owner Address">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                                        <div class="form-group">
+                                            <label class="" for="owner_city"> City</label>
+                                            <input type="text" name="owner_city" id="owner_city"
+                                                class="form-control form-control-sm text-sm rounded-0"
+                                                placeholder="Owner City" />
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="row formSectionOwner">
+
+
+                                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                                        <div class="form-group">
+                                            <label class="" for="owner_state"> State</label>
+                                            <input type="text" name="owner_state" id="owner_state"
+                                                class="form-control form-control-sm text-sm rounded-0"
+                                                placeholder="Owner Mailing State" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                                        <div class="form-group">
+                                            <label class="" for="owner_zip"> Zip</label>
+                                            <input type="text" name="owner_zip" id="owner_zip"
+                                                class="form-control form-control-sm text-sm rounded-0"
+                                                placeholder="Owner Mailing Zip" data-inputmask='"mask": "99999"'
+                                                data-mask />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                                        <div class="form-group">
+                                            <label class="" for="home_phone"> Home Phone</label>
+                                            <input type="text" class="form-control form-control-sm text-sm rounded-0"
+                                                name="home_phone" id="home_phone" placeholder="(000) 000-0000"
+                                                data-inputmask='"mask": "(999) 999-9999"' data-mask>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 col-xs-12 ">
+                                        <div class="form-group">
+                                            <label class="" for="cell_phone"> Cell Phone</label>
+                                            <input type="text" name="cell_phone" id="cell_phone"
+                                                class="form-control form-control-sm text-sm rounded-0"
+                                                placeholder="(000) 000-0000" data-inputmask='"mask": "(999) 999-9999"'
+                                                data-mask />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 "></div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                        <h6 class="text-bold mt-3">Where Would You Like Your Application Mailed to Next
+                                            Year?</h6>
+                                    </div>
+                                    <div class="col-md-2 col-sm-6 col-xs-12 ">
+                                        <div class="icheck-info d-inline ml-4 ">
+                                            <input type="checkbox" id="copyEstData" name="copyEstData">
+                                            <label for="copyEstData" class="font-weight-normal "
+                                                style="font-size: 16px;font-weight: 800;">
+                                                Copy Establishment
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-10 col-sm-6 col-xs-12 ">
+                                        <div class="icheck-info d-inline ml-4">
+                                            <input type="checkbox" id="chkCopyOwnerData" name="chkCopyOwnerData">
+                                            <label for="chkCopyOwnerData" class="font-weight-normal "
+                                                style="font-size: 16px;font-weight: 800;">
+                                                Copy Owner
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12 " style="    margin-bottom: 26px;"></div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="" for="applicant_name">Applicant Name <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" name="applicant_name" id="applicant_name"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                placeholder=" Name ">
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="applicant_address">Applicant Address</label>
+                                            <input type="text" name="applicant_address" id="applicant_address"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                placeholder=" Address ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="applicant_city">Applicant City</label>
+                                            <input type="text" name="applicant_city" id="applicant_city"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                placeholder="City ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="applicant_state">Applicant State</label>
+                                            <input type="text" name="applicant_state" id="applicant_state"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                placeholder=" State ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-12 genericFormItems">
+                                        <div class="form-group">
+                                            <label class="" for="applicant_zip">Applicant Zip</label>
+                                            <input type="text" name="applicant_zip" id="applicant_zip"
+                                                class="form-control form-control-sm text-sm rounded-0 shadow"
+                                                data-inputmask="&quot;mask&quot; : &quot;99999&quot;" data-mask=""
+                                                im-insert="true" placeholder=" Zip ">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row border-top">
+                                    <div class="col-md-12 pt-2 text-right">
+                                        <a href="{% url 'food:food_index' %}"
+                                            class="btn btn-danger btn-sm btn-flat text-white mr-1">Cancel</a>
+                                        <button type="button" class="btn btn-info btn-sm btn-flat text-white"
+                                            id="final_submit_btn">Proceed<i
+                                                class="fas fa-arrow-circle-right ml-2"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="overlay">
+        <i class="fa fa-circle-notch fa-spin"></i>Processing - Plaease Wait...
+    </div>
+</section>
+
+{% endblock %}
+
+{%block script%}
+    <script src="{% static 'js/permit/food_permit.js' %}"></script>
+{% endblock %}
