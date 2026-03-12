@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'users',
     'authentication',
     'food_permits',
-    'dashboard'
+    'dashboard',
+    'master_permit_type',
+    'fee'
 ]
 
 MIDDLEWARE = [
@@ -136,3 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # settings.py
 # AUTH_USER_MODEL = 'users.CustomUser'
 AUTH_USER_MODEL = 'users.User'
+# USERNAME_FIELD = 'email'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'

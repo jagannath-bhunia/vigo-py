@@ -48,12 +48,17 @@
         <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
         <!-- Custom Javascripts -->
         <script src="{% static 'dist/js/adminlte.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
 
-
-
+{% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> {% endcomment %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
         {% block script %}
         {% endblock %}
         <script>
+            $(document).ready(function(){
+                $('[data-mask]').inputmask();
+            });
             $(function(){
                 $('[data-toggle="tooltip"]').tooltip();
             });
@@ -62,13 +67,13 @@
             return val.id;
             }
 
-            if($('select.select2').length){
+            {% comment %} if($('select.select2').length){
                 $('.select2').select2({
                     width: 'resolve',
                     //theme:'classic',
                     containerCssClass : " shadow"
                 });
-            }
+            } {% endcomment %}
 
             $(window).scroll(function () {
                 if ($(this).scrollTop() > 50) {
@@ -171,9 +176,9 @@
             var elevetionClass = ' shadow';
            
             ////////////////////////////////////////////////////////////////////////////////////////////////
-            if($('input[data-mask]').length){
+            {% comment %} if($('input[data-mask]').length){
                 $('[data-mask]').inputmask();
-            }
+            } {% endcomment %}
 
             
             var planReviewFee = parseFloat("");
@@ -234,8 +239,31 @@
                 }
                 return true;
             }
-            
+        </script>
+    
+        <script>
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
 
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            const csrftoken = getCookie('csrftoken');
+
+            $.ajaxSetup({
+                headers: { "X-CSRFToken": csrftoken }
+            });
         </script>
     </body>
 </html>

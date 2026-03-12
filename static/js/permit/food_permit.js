@@ -25,8 +25,8 @@ $(document).ready(function(){
             $.ajax({
                 url: get_permit_fee_ajax,
                 type: "POST",
-                data: {master_fee_id: master_fee_id},
-                dataType:"JSON",
+                data: {master_fee_id: master_fee_id },
+                // dataType:"JSON",
                 beforeSend: function () {
                     $('#overlay').show();
                 },

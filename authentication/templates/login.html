@@ -19,33 +19,41 @@
     <div class="login-box">
         <h4 class="text-center mt-3">Vigo</h4>
         <div class="card mt-3">
-            <div class="card-body login-card-body">
+            <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
-                <form action="" method="post">
-
+                <form method="POST" action="{% url 'user_login' %}">
+                    {% csrf_token %}
                     <div class="input-group mb-3">
-                        <input type="email" name="email" id="email" class="form-control rounded-0" autocomplete="on"
+                        <input type="email" name="email" id="email" class="form-control" autocomplete="on"
                             required placeholder="Email" value=" ">
                         <div class="input-group-append">
-                            <div class="input-group-text rounded-0">
+                            <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password" id="password" class="form-control rounded-0"
+                        <input type="password" name="password" id="password" class="form-control"
                             autocomplete="on" required placeholder="Password" value="">
+                            {% comment %} {{ form.password }} {% endcomment %}
                         <div class="input-group-append">
-                            <div class="input-group-text rounded-0">
+                            <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
+
+
+                    {% comment %} {{ form.as_p }} {% endcomment %}
+
                     <div class="row">
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>
                     </div>
+                    {% if error %}
+                        <p style="color:red">{{ error }}</p>
+                    {% endif %}
                 </form>
                 <p class="mb-1 mt-2">
                     <a href="">I forgot my password</a>

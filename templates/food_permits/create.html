@@ -5,7 +5,7 @@
 
 
 {% block content%}
-
+{% csrf_token %}
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -60,7 +60,11 @@
                                                         class="form-control form-control-sm text-sm rounded-0 select2 "
                                                         name="permit_fee_id" id="permit_fee_id">
                                                         <option value="">Select Fees Category </option>
-
+                                                        {% for fee in fees %}
+                                                            <option value="{{ fee.id }}" >
+                                                                {{ fee.classifications }} - ${{ fee.base_charge }}
+                                                            </option>
+                                                        {% endfor %}
 
 
                                                     </select>
@@ -123,7 +127,7 @@
                                             <label class="" for="permit_file_date">File Date
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="permit_file_date" id="permit_file_date"
-                                                class="form-control form-control-sm text-sm rounded-0 shadow" value=""
+                                                class="form-control form-control-sm text-sm rounded-0 shadow" value="{% now 'm/d/Y' %}"
                                                 data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy"
                                                 data-mask="" im-insert="false" readonly>
                                         </div>
@@ -133,7 +137,7 @@
                                             <label class="" for="permit_expiration_date">Expiration Date </label>
                                             <input type="text" name="permit_expiration_date" id="permit_expiration_date"
                                                 class="form-control form-control-sm text-sm rounded-0 shadow"
-                                                placeholder="mm/dd/yyyy" value="" readonly="">
+                                                placeholder="mm/dd/yyyy" value="12/31/{% now "Y" %}" readonly="">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12"></div>
@@ -153,7 +157,7 @@
                                             <input type="text" name="est_phone" id="est_phone"
                                                 class="form-control form-control-sm text-sm rounded-0 shadow"
                                                 data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;"
-                                                data-mask="" im-insert="true" placeholder="Establishment Phone ">
+                                                data-mask="" im-insert="true" placeholder="(999) 999-9999">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 genericFormItems">
@@ -414,5 +418,9 @@
 {% endblock %}
 
 {%block script%}
+    <script>
+        var get_permit_fee_ajax = "{% url 'fee:permit_fee' %}";
+        
+    </script>
     <script src="{% static 'js/permit/food_permit.js' %}"></script>
 {% endblock %}

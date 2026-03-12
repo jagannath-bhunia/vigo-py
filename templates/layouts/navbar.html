@@ -35,8 +35,9 @@
                         <a  href=""
                             class="btn btn-primary btn-sm btn-flat d-inline text-white">Change Password</a>
 
-                        <form method="POST" action=""
+                        <form method="POST" action="{% url 'logout' %}"
                             class="btn btn-danger btn-sm btn-flat d-inline float-right text-white">
+                            {% csrf_token %}
                            
                             <a href="#" class="text-white"
                                 onclick="event.preventDefault();
